@@ -4,6 +4,27 @@ function FactList({ facs, categories }) {
   const [votes, setVotes] = useState(facs);
 
   function handleVote(voteType, id) {
+    const fact = votes.find((fact) => fact.id === id);
+
+    if (!fact) return;
+
+    let voteCount = 0;
+    switch (voteType) {
+      case "interesting":
+        voteCount = fact.votesInteresting;
+        break;
+      case "mindblowing":
+        voteCount = fact.votesMindblowing;
+        break;
+      case "false":
+        voteCount = fact.votesFalse;
+        break;
+      default:
+        return;
+    }
+
+    if (voteCount >= 1) return;
+
     const newVotes = votes.map((fact) => {
       if (fact.id === id) {
         switch (voteType) {
@@ -30,7 +51,6 @@ function FactList({ facs, categories }) {
     });
     setVotes(newVotes);
   }
-
   return (
     <div>
       <ul className="facts-list">
