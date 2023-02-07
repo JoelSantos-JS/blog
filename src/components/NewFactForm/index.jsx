@@ -1,7 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 
-function NewFactForm() {
-  return <form className="fact-form">Fact form</form>;
+function NewFactForm({ categories, facs, setFacs, setShowForm }) {
+  const [text, setText] = useState("");
+  const [source, setSource] = useState("");
+  const [category, setCategory] = useState("");
+  const textLeght = 200 - text.length;
+
+  function isValidHttpUrl(string) {
+    let url;
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(text, source);
+    if (text && isValidHttpUrl(source) && category && textLeght <= 200) {
+      const newFact = {
+        id: Math.round(Math.random() * 10000),
+        text,
+        source,
+        category,
+        votesInteresting: 0,
+        votesMindblowing: 0,
+        votesFalse: 0,
+        createdIn: new Date().getFullYear(),
+      };
+
+      setFacs((fac) => [newFact, ...fac]);
+      setText("");
+      setSource("");
+      setCategory("");
+      setShowForm(false);
+    }
+  }
+
+  return (
+    <form className="fact-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={text}
+        placeholder="share a fact about the world.."
+        onChange={(e) => setText(e.target.value)}
+      />
+      <span>{textLeght}</span>
+      <input
+        type="text"
+        value={source}
+        onChange={(e) => setSource(e.target.value)}
+        placeholder="Trustworthy source..."
+      />
+
+      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <option value="">Choose category</option>
+        {categories &&
+          categories.map((category) => (
+            <option value={category.name} key={category.name}>
+              {category.name.toUpperCase()}
+            </option>
+          ))}
+      </select>
+      <button className="btn btn-large">Post</button>
+    </form>
+  );
 }
 
 export default NewFactForm;

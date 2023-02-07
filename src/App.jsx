@@ -51,14 +51,26 @@ function App() {
       createdIn: 2015,
     },
   ];
+  const [facs, setFacs] = useState(initialFacts);
+
+  const [showform, setShowForm] = useState(false);
 
   return (
     <>
-      <Header />
-      <NewFactForm />
+      <Header showform={showform} setShowForm={setShowForm} />
+
+      {showform ? (
+        <NewFactForm
+          categories={CATEGORIES}
+          facs={facs}
+          setFacs={setFacs}
+          setShowForm={setShowForm}
+        />
+      ) : null}
+
       <main className="main">
         <CategoryFilter categories={CATEGORIES} />
-        <FactList initialFacts={initialFacts} categories={CATEGORIES} />
+        <FactList facs={facs} categories={CATEGORIES} />
       </main>
     </>
   );

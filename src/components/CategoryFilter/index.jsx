@@ -3,14 +3,22 @@ import React from "react";
 function CategoryFilter({ categories }) {
   return (
     <aside>
-      <div>
+      <ul>
+        <li className="category">
+          <button className="btn btn-all-categories">All</button>
+        </li>
         {categories &&
           categories.map((category) => (
-            <button style={{ background: `${category.color}` }}>
-              {category.name}
-            </button>
+            <li className="category" key={category.name}>
+              <button
+                className="btn btn-category"
+                style={{ background: `${category.color}` }}
+              >
+                {category.name}
+              </button>
+            </li>
           ))}
-      </div>
+      </ul>
     </aside>
   );
 }

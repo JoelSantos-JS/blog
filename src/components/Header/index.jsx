@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../assets/logo.png";
-function Header() {
+function Header({ setShowForm, showform }) {
   return (
     <header className="header">
       <div className="logo">
@@ -12,7 +12,12 @@ function Header() {
         <h1 className="">Today i Learned</h1>
       </div>
 
-      <button className="btn btn-large btn-open">Share a fact</button>
+      <button
+        className="btn btn-large btn-open"
+        onClick={() => setShowForm((state) => !state)}
+      >
+        {showform ? "Close form" : "Share a fact"}
+      </button>
     </header>
   );
 }
