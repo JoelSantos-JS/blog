@@ -1,11 +1,41 @@
 import React, { useState } from "react";
 
 function FactList({ facs, categories }) {
+  const [votes, setVotes] = useState(facs);
+
+  function handleVote(voteType, id) {
+    const newVotes = votes.map((fact) => {
+      if (fact.id === id) {
+        switch (voteType) {
+          case "interesting":
+            return {
+              ...fact,
+              votesInteresting: fact.votesInteresting + 1,
+            };
+          case "mindblowing":
+            return {
+              ...fact,
+              votesMindblowing: fact.votesMindblowing + 1,
+            };
+          case "false":
+            return {
+              ...fact,
+              votesFalse: fact.votesFalse + 1,
+            };
+          default:
+            return fact;
+        }
+      }
+      return fact;
+    });
+    setVotes(newVotes);
+  }
+
   return (
     <div>
       <ul className="facts-list">
-        {facs &&
-          facs.map((fac) => (
+        {votes &&
+          votes.map((fac) => (
             <li key={fac.id} className="fact">
               <p>{fac.text}</p>
 
@@ -23,9 +53,15 @@ function FactList({ facs, categories }) {
               </span>
 
               <div className="vote-buttons">
-                <button>{fac.votesInteresting} 😇</button>
-                <button>{fac.votesMindblowing} 🥰</button>
-                <button>{fac.votesFalse} 😅</button>
+                <button onClick={() => handleVote("interesting", fac.id)}>
+                  {fac.votesInteresting} 😇
+                </button>
+                <button onClick={() => handleVote("mindblowing", fac.id)}>
+                  {fac.votesMindblowing} 🥰
+                </button>
+                <button onClick={() => handleVote("false", fac.id)}>
+                  {fac.votesFalse} 😅
+                </button>
               </div>
             </li>
           ))}

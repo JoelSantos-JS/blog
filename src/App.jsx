@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import CategoryFilter from "./components/CategoryFilter";
 import FactList from "./components/FactList";
@@ -51,9 +51,16 @@ function App() {
       createdIn: 2015,
     },
   ];
-  const [facs, setFacs] = useState(initialFacts);
+
+  const dados = JSON.parse(localStorage.getItem("data"));
+
+  console.log(dados);
+
+  const [facs, setFacs] = useState(dados || initialFacts);
 
   const [showform, setShowForm] = useState(false);
+
+  useEffect(() => {}, []);
 
   return (
     <>

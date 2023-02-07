@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function NewFactForm({ categories, facs, setFacs, setShowForm }) {
   const [text, setText] = useState("");
@@ -16,7 +16,7 @@ function NewFactForm({ categories, facs, setFacs, setShowForm }) {
     return url.protocol === "http:" || url.protocol === "https:";
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     console.log(text, source);
     if (text && isValidHttpUrl(source) && category && textLeght <= 200) {
@@ -31,7 +31,9 @@ function NewFactForm({ categories, facs, setFacs, setShowForm }) {
         createdIn: new Date().getFullYear(),
       };
 
-      setFacs((fac) => [newFact, ...fac]);
+      await localStorage.setItem("data", JSON.stringify([...facs, newFact]));
+
+      setFacs((fac) => [...fac, newFact]);
       setText("");
       setSource("");
       setCategory("");
@@ -40,32 +42,34 @@ function NewFactForm({ categories, facs, setFacs, setShowForm }) {
   }
 
   return (
-    <form className="fact-form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={text}
-        placeholder="share a fact about the world.."
-        onChange={(e) => setText(e.target.value)}
-      />
-      <span>{textLeght}</span>
-      <input
-        type="text"
-        value={source}
-        onChange={(e) => setSource(e.target.value)}
-        placeholder="Trustworthy source..."
-      />
+    <>
+      <form className="fact-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={text}
+          placeholder="share a fact about the world.."
+          onChange={(e) => setText(e.target.value)}
+        />
+        <span>{textLeght}</span>
+        <input
+          type="text"
+          value={source}
+          onChange={(e) => setSource(e.target.value)}
+          placeholder="Trustworthy source..."
+        />
 
-      <select value={category} onChange={(e) => setCategory(e.target.value)}>
-        <option value="">Choose category</option>
-        {categories &&
-          categories.map((category) => (
-            <option value={category.name} key={category.name}>
-              {category.name.toUpperCase()}
-            </option>
-          ))}
-      </select>
-      <button className="btn btn-large">Post</button>
-    </form>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">Choose category</option>
+          {categories &&
+            categories.map((category) => (
+              <option value={category.name} key={category.name}>
+                {category.name.toUpperCase()}
+              </option>
+            ))}
+        </select>
+        <button className="btn btn-large">Post</button>
+      </form>
+    </>
   );
 }
 
