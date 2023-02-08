@@ -55,7 +55,7 @@ function NewFactForm({ categories, facs, setFacs, setShowForm }) {
           type="text"
           value={source}
           onChange={(e) => setSource(e.target.value)}
-          placeholder="Trustworthy source..."
+          placeholder="Link here..."
         />
 
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
