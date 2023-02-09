@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-
-function FactList({ facs, categories }) {
+import { BsTrash } from "react-icons/bs";
+function FactList({ facs, categories, setFacs }) {
   const [votes, setVotes] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -9,50 +9,36 @@ function FactList({ facs, categories }) {
     setVotes(facs);
   }, []);
 
-  function handleVote(voteType, id) {
-    setVotes((prevVotes) =>
-      prevVotes.map((fact) => {
-        if (fact.id !== id) return fact;
-
-        switch (voteType) {
-          case "interesting":
-            if (fact.votesInteresting >= 1) return fact;
-            return {
-              ...fact,
-              votesInteresting: fact.votesInteresting + 1,
-            };
-          case "mindblowing":
-            if (fact.votesMindblowing >= 1) return fact;
-            return {
-              ...fact,
-              votesMindblowing: fact.votesMindblowing + 1,
-            };
-          case "false":
-            if (fact.votesFalse >= 1) return fact;
-            return {
-              ...fact,
-              votesFalse: fact.votesFalse + 1,
-            };
-          default:
-            return fact;
-        }
-      })
-    );
-  }
-
   const filteredFacts = facs.filter(
     (fact) => !selectedCategory || fact.category === selectedCategory
   );
 
+  console.log(facs);
+
+  const handleDelete = (id) => {
+    if (facs.length === 1) {
+      alert("Você não pode excluir todos os posts!");
+      return;
+    }
+    const deletePost = facs.filter((fact) => fact.id !== id);
+
+    setFacs(deletePost);
+
+    localStorage.setItem("data", JSON.stringify(deletePost));
+  };
   return (
     <div>
       <ul className="facts-list">
         {filteredFacts &&
           filteredFacts.map((fac) => (
             <li key={fac.id} className="fact">
-              <p>{fac.text}</p>
+              <span className="delete">
+                <BsTrash size={23} onClick={() => handleDelete(fac.id)} />
+              </span>
 
-              <a href={fac.source}></a>
+              <a href={fac.source} target="_blank" className="source">
+                {fac.text}
+              </a>
 
               <span
                 className="tag"

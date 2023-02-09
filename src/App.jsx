@@ -61,7 +61,11 @@ function App() {
           categories={CATEGORIES}
           setCurrentCategory={setCurrentCategory}
         />
-        <FactList facs={filteredFacts} categories={CATEGORIES} />
+        <FactList
+          facs={filteredFacts}
+          categories={CATEGORIES}
+          setFacs={setFacs}
+        />
       </main>
     </>
   );

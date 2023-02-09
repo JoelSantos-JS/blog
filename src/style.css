@@ -101,12 +101,21 @@ h1 {
   padding: 16px 24px;
   letter-spacing: -1px;
   border-radius: 16px;
-
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 24px;
+}
+
+.delete {
+  position: absolute;
+  top: 0.4;
+  left: 0;
+  margin-top: 3px;
+  margin-left: 5px;
+  cursor: pointer;
 }
 
 @media (max-width: 1200px) {
@@ -131,9 +140,13 @@ ul {
   list-style: none;
 }
 
+.source {
+  text-decoration: none;
+}
+
 .source:link,
 .source:visited {
-  color: #a8a29e;
+  color: #3b82f6;
   text-decoration: none;
   margin-left: 12px;
   transition: 0.3s;
@@ -141,7 +154,7 @@ ul {
 
 .source:hover,
 .source:active {
-  color: #3b82f6;
+  color: #a8a29e;
 }
 
 .btn {
@@ -168,7 +181,7 @@ ul {
 }
 
 .btn:hover {
-  transform: scale(110%) rotate(-2deg);
+  transform: scale(110%) rotate(2deg);
 }
 
 .btn-large {
