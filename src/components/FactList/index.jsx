@@ -1,44 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function FactList({ facs, categories }) {
-  const [votes, setVotes] = useState(facs);
+  const [votes, setVotes] = useState([]);
+
+  useEffect(() => {
+    // Carregar dados iniciais aqui
+    setVotes(facs);
+  }, []);
 
   function handleVote(voteType, id) {
-    const fact = votes.find((fact) => fact.id === id);
+    setVotes((prevVotes) =>
+      prevVotes.map((fact) => {
+        if (fact.id !== id) return fact;
 
-    if (!fact) return;
-
-    let voteCount = 0;
-    switch (voteType) {
-      case "interesting":
-        voteCount = fact.votesInteresting;
-        break;
-      case "mindblowing":
-        voteCount = fact.votesMindblowing;
-        break;
-      case "false":
-        voteCount = fact.votesFalse;
-        break;
-      default:
-        return;
-    }
-
-    if (voteCount >= 1) return;
-
-    const newVotes = votes.map((fact) => {
-      if (fact.id === id) {
         switch (voteType) {
           case "interesting":
+            if (fact.votesInteresting >= 1) return fact;
             return {
               ...fact,
               votesInteresting: fact.votesInteresting + 1,
             };
           case "mindblowing":
+            if (fact.votesMindblowing >= 1) return fact;
             return {
               ...fact,
               votesMindblowing: fact.votesMindblowing + 1,
             };
           case "false":
+            if (fact.votesFalse >= 1) return fact;
             return {
               ...fact,
               votesFalse: fact.votesFalse + 1,
@@ -46,11 +35,10 @@ function FactList({ facs, categories }) {
           default:
             return fact;
         }
-      }
-      return fact;
-    });
-    setVotes(newVotes);
+      })
+    );
   }
+
   return (
     <div>
       <ul className="facts-list">
