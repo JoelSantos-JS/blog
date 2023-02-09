@@ -67,7 +67,11 @@ function FactList({ facs, categories }) {
             </li>
           ))}
       </ul>
-      <p>The are {facs.length} in database add your own!</p>
+      <p>
+        {filteredFacts && facs.length === 0
+          ? "There is nothing here , be the first to share a fact!"
+          : `'The are ${facs.length} in database add your own!'`}
+      </p>
     </div>
   );
 }

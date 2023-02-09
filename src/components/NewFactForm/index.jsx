@@ -45,7 +45,7 @@ function NewFactForm({ categories, facs, setFacs, setShowForm }) {
         <input
           type="text"
           value={text}
-          placeholder="share a fact about the world.."
+          placeholder="Share a fact about the world.."
           onChange={(e) => setText(e.target.value)}
         />
         <span>{textLeght}</span>
