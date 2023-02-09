@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function FactList({ facs, categories }) {
   const [votes, setVotes] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     // Carregar dados iniciais aqui
@@ -39,11 +40,15 @@ function FactList({ facs, categories }) {
     );
   }
 
+  const filteredFacts = facs.filter(
+    (fact) => !selectedCategory || fact.category === selectedCategory
+  );
+
   return (
     <div>
       <ul className="facts-list">
-        {votes &&
-          votes.map((fac) => (
+        {filteredFacts &&
+          filteredFacts.map((fac) => (
             <li key={fac.id} className="fact">
               <p>{fac.text}</p>
 
@@ -59,18 +64,6 @@ function FactList({ facs, categories }) {
               >
                 {fac.category}
               </span>
-
-              <div className="vote-buttons">
-                <button onClick={() => handleVote("interesting", fac.id)}>
-                  {fac.votesInteresting} 😇
-                </button>
-                <button onClick={() => handleVote("mindblowing", fac.id)}>
-                  {fac.votesMindblowing} 🥰
-                </button>
-                <button onClick={() => handleVote("false", fac.id)}>
-                  {fac.votesFalse} 😅
-                </button>
-              </div>
             </li>
           ))}
       </ul>

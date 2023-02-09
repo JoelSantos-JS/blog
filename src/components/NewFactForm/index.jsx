@@ -18,16 +18,14 @@ function NewFactForm({ categories, facs, setFacs, setShowForm }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(text, source);
+
     if (text && isValidHttpUrl(source) && category && textLeght <= 200) {
       const newFact = {
         id: Math.round(Math.random() * 10000),
         text,
         source,
         category,
-        votesInteresting: 0,
-        votesMindblowing: 0,
-        votesFalse: 0,
+
         createdIn: new Date().getFullYear(),
       };
 

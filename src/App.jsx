@@ -24,20 +24,22 @@ function App() {
       text: "React is being developed by Meta (formerly facebook)",
       source: "https://opensource.fb.com/",
       category: "technology",
-      votesInteresting: 24,
-      votesMindblowing: 9,
-      votesFalse: 4,
+
       createdIn: 2021,
     },
   ];
 
   const dados = JSON.parse(localStorage.getItem("data"));
 
-  console.log(dados);
-
   const [facs, setFacs] = useState(dados || initialFacts);
 
   const [showform, setShowForm] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState("All");
+
+  const filteredFacts =
+    currentCategory === "All"
+      ? facs
+      : facs.filter((fact) => fact.category === currentCategory);
 
   useEffect(() => {}, []);
 
@@ -55,8 +57,11 @@ function App() {
       ) : null}
 
       <main className="main">
-        <CategoryFilter categories={CATEGORIES} />
-        <FactList facs={facs} categories={CATEGORIES} />
+        <CategoryFilter
+          categories={CATEGORIES}
+          setCurrentCategory={setCurrentCategory}
+        />
+        <FactList facs={filteredFacts} categories={CATEGORIES} />
       </main>
     </>
   );
