@@ -1,8 +1,10 @@
-<h1 align="center">
-    <img width="250px" src="https://serving.photos.photobox.com/55025472c5aff0f55dd14b53509ac892515e258aecfcb3ed860ad561345a6e9a125024b5.jpg" alt="logo-codeburger">
-</h1>
 
 > ## 💻 Projeto
+
+<h1 align="center">
+    <img width="550px" src="https://serving.photos.photobox.com/55025472c5aff0f55dd14b53509ac892515e258aecfcb3ed860ad561345a6e9a125024b5.jpg" alt="logo-codeburger">
+</h1>
+
 
 
 
