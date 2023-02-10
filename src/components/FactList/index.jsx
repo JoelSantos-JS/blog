@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BsTrash } from "react-icons/bs";
+import { toast } from "react-toastify";
 function FactList({ facs, categories, setFacs }) {
   const [votes, setVotes] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -13,18 +14,50 @@ function FactList({ facs, categories, setFacs }) {
     (fact) => !selectedCategory || fact.category === selectedCategory
   );
 
-  console.log(facs);
-
   const handleDelete = (id) => {
     if (facs.length === 1) {
-      alert("Você não pode excluir todos os posts!");
+      toast.error("Você não pode excluir todos os posts!", {
+        position: "top-right",
+        autoClose: 1380,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       return;
     }
-    const deletePost = facs.filter((fact) => fact.id !== id);
 
-    setFacs(deletePost);
+    try {
+      const deletePost = facs.filter((fact) => fact.id !== id);
 
-    localStorage.setItem("data", JSON.stringify(deletePost));
+      setFacs(deletePost);
+
+      localStorage.setItem("data", JSON.stringify(deletePost));
+
+      toast.success("Post deletado com sucesso!", {
+        position: "top-right",
+        autoClose: 980,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } catch (error) {
+      toast.error("Erro ao deletar o post", {
+        position: "top-right",
+        autoClose: 1380,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
   return (
     <div>

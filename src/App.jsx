@@ -4,6 +4,9 @@ import CategoryFilter from "./components/CategoryFilter";
 import FactList from "./components/FactList";
 import Header from "./components/Header";
 import NewFactForm from "./components/NewFactForm";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 import "./style.css";
 
 function App() {
@@ -66,6 +69,7 @@ function App() {
           categories={CATEGORIES}
           setFacs={setFacs}
         />
+        <ToastContainer />
       </main>
     </>
   );

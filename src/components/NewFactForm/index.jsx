@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 function NewFactForm({ categories, facs, setFacs, setShowForm }) {
   const [text, setText] = useState("");
@@ -32,6 +33,16 @@ function NewFactForm({ categories, facs, setFacs, setShowForm }) {
       await localStorage.setItem("data", JSON.stringify([...facs, newFact]));
 
       setFacs((fac) => [...fac, newFact]);
+      toast.success("Post feito com sucesso", {
+        position: "top-right",
+        autoClose: 1180,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       setText("");
       setSource("");
       setCategory("");

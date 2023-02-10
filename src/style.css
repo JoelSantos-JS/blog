@@ -115,6 +115,7 @@ h1 {
   left: 0;
   margin-top: 3px;
   margin-left: 5px;
+  padding-right: 50px;
   cursor: pointer;
 }
 
@@ -142,6 +143,7 @@ ul {
 
 .source {
   text-decoration: none;
+  text-align: center;
 }
 
 .source:link,
