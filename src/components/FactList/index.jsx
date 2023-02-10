@@ -36,7 +36,7 @@ function FactList({ facs, categories, setFacs }) {
 
       localStorage.setItem("data", JSON.stringify(deletePost));
 
-      toast.success("Post deletado com sucesso!", {
+      toast.success("Post delete with successfully!", {
         position: "top-right",
         autoClose: 980,
         hideProgressBar: false,
@@ -47,7 +47,7 @@ function FactList({ facs, categories, setFacs }) {
         theme: "colored",
       });
     } catch (error) {
-      toast.error("Erro ao deletar o post", {
+      toast.error("Error to delete the post", {
         position: "top-right",
         autoClose: 1380,
         hideProgressBar: false,

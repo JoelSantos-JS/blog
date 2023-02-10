@@ -33,7 +33,7 @@ function NewFactForm({ categories, facs, setFacs, setShowForm }) {
       await localStorage.setItem("data", JSON.stringify([...facs, newFact]));
 
       setFacs((fac) => [...fac, newFact]);
-      toast.success("Post feito com sucesso", {
+      toast.success("Post made with successfully", {
         position: "top-right",
         autoClose: 1180,
         hideProgressBar: false,
